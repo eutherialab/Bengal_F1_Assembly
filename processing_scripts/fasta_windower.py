@@ -30,7 +30,7 @@ def parse_fasta(f, output, window_size, chromosome, line_len):
         end_pos = window_size
 
         for _ in range(number_of_out_seqs):
-            current_file_path = output / f"chr{chromosome}/chr{chromosome}_{start_pos}_{end_pos}.fasta"
+            current_file_path = output / f"{chromosome}/{chromosome}_{start_pos}_{end_pos}.fasta"
             if flag:
                 if current_file_path.is_file():
                     os.remove(current_file_path)
@@ -103,10 +103,10 @@ def main():
     # Iterate through each file and parse
     for f in files_to_run:
         # Identify chromosome to be run
-        CHR = f.stem.split("_")[0].strip("chr")
+        CHR = f.stem.split("_")[0]
 
         # Make output directory before calling main function
-        CHROM_OUTPUT = OUTPUT_DIR / "chr{}/".format(CHR)
+        CHROM_OUTPUT = OUTPUT_DIR / f"{CHR}/"
         CHROM_OUTPUT.mkdir(parents=True, exist_ok=True)
 
         print(f"Initiating windowing for Chromosome {CHR}")
